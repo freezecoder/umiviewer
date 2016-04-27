@@ -9,7 +9,7 @@ A viewer for UMI and metrics file from DropSeq analysis. This code uses the shin
 install dependencies using the R console or RStudio:
 
 ```
-install.packages(c("shiny","shinyjs","rCharts","d3heatmap","ggplot2","data.table"))
+install.packages(c("shiny","shinyjs","rCharts","rjson","d3heatmap","ggplot2","data.table"))
 ```
 
 You may need to be root/sudo if not using Rstudio.
