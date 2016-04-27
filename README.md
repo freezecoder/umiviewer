@@ -1,7 +1,7 @@
 
 #Introduction
 
-A viewer for UMI and metrics file from DropSeq analysis. This code uses the shiny framework ( http://shiny.rstudio.com).
+A viewer for UMI and metrics file from DropSeq analysis. The results of the canal pipeline are used as input to this dashboard viewer. This code uses the shiny framework ( http://shiny.rstudio.com).
 
 
 # Dependencies
