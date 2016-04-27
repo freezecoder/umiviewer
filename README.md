@@ -19,10 +19,12 @@ You may need to be root/sudo if not using Rstudio.
 Set the path of your data folder in global.R  i.e. change the line using a text editor of your choice.
 
 ```
+#global.R
+#must contain this line that's a  valid folder path to your data
 topdir="yourfolderpath"
 ```
 
-Save the file with these changes.
+Save the file with these changes. 
 
 Once this is set, you can launch in Rstudio using:
 
