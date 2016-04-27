@@ -6,10 +6,13 @@ A viewer for UMI and metrics file from DropSeq analysis. This code uses the shin
 
 # Dependencies
 
-install dependencies using the R console:
+install dependencies using the R console or RStudio:
 
+```
 install.packages(c("shiny","shinyjs","rCharts","d3heatmap","ggplot2","data.table"))
+```
 
+You may need to be root/sudo if not using Rstudio.
 
 # Running
 
@@ -19,8 +22,10 @@ topdir="yourfolderpath"
 
 Once this is set, you can launch in Rstudio using:
 
-runApp("/path/to/this/code",port="2333")
 
+```
+runApp("/path/to/this/code",port="2333",launch.browser=TRUE)
+```
 
 or you can install the App in a shiny server folder and launch from there.
 
