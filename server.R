@@ -13,6 +13,7 @@ shinyServer(function(input, output, session) {
   source("getData.R",local=TRUE)
   source("mappedreadscatter.R",local=TRUE)
   source("views.R",local=TRUE)
+  source("canalqc.R",local=TRUE)
   
   
  output$ui_heatmap <- renderUI({

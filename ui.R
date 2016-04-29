@@ -143,6 +143,11 @@ shinyUI(fluidPage(div(h1("Imane's UMI Viewer"),style="font-family : fantasy ;"),
   mainPanel(
      navlistPanel("Views",widths=c(2,10),
     scatterplotPanel(), #mapped reads scatter plot
+	tabPanel("Canal QC",
+		plotOutput("canalplot",width=1200,height=1000),
+		downloadButton('canal_download', class="btn btn-info btn-lg",icon("file-excel-o") ),
+		dataTableOutput("canaldt")
+	),
 	tablePanel(),
     heatmapTab(),
     statsTab(),
