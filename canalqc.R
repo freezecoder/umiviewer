@@ -1,5 +1,13 @@
 
+# Full Metrics for RNAseq data. Intended to be used with Drop seq and G&T seq experiments by the Satija Lab 
+#Shiwei Zheng and Greg Brittingham
+# created 12/3/15
 
+# Set Species = 1 to print species specificity metrics to terminal and saved to working directory.
+# example input: Metrics("GregsExperiment", Species = 1, PCT_MRNA = .5, NUM_Transcripts = 75)
+# Make sure your working folder contains the .metrics.txt, .reads.txt, and the .qc.txt / .umi.txt files 
+# from the SingleCellRNASeqMetricsCollector script (canal.pl pipeline and canal folder), the BAMTAGHistorgram script (in canal folder)
+# and the canal.pl pipeline respectively.
 
 
 
