@@ -1,6 +1,4 @@
 
-### CURRENTLY UNUSED 
-
 
 output$mappedreadscatter<-renderPlot({
     
@@ -78,13 +76,14 @@ output$metricsbarchart <-renderChart({
 		
         d1 <- dPlot(
           y = input$mmeasure,
-          x= "SAMPLE",
+          x= c("SAMPLE","sourcefile"),
 		  groups="sourcefile",
           data = mydata,
           type = input$mctype
         )
         d1$xAxis( type = "addCategoryAxis")
         d1$yAxis( type = "addMeasureAxis" )
+		d1$xAxis( orderRule = "SAMPLE")
         d1$params$width=1200
         d1$params$height=800
 		
@@ -138,7 +137,11 @@ output$orgcountplot<-renderChart({
 			metric=input$ocmetric
 
 	        mydata=merged_org_counts()
-			 d1 <- dPlot(
+			
+			if (!is.null(input$mmfiles)) 
+				mydata=subset(mydata,sourcefile %in% input$mmfiles)
+						
+			d1 <- dPlot(
 			y = metric,
 			x= c("DNAtag","sourcefile"),
 			groups="sourcefile",
@@ -147,6 +150,7 @@ output$orgcountplot<-renderChart({
         )
         d1$xAxis( type = "addCategoryAxis")
         d1$yAxis( type = "addMeasureAxis" )
+		d1$xAxis( orderRule = "DNAtag")
 		#d1$yAxis( type = "addMeasureAxis" )
         d1$params$width=1200
         d1$params$height=800

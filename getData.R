@@ -1,11 +1,18 @@
 
 output$choosefolder<-renderUI({
+	validate(
+			need(topdir !="", "Please select a data  folder ")
+	)
+
   indir=paste(topdir,sep="/")
   folders=list.dirs(topdir,recursive=FALSE) 
   selectInput("ifolder","Choose Folder with UMI files:",selected=tail(folders,1),folders)
 })
 
 output$choosefile<-renderUI({
+	validate(
+			need(input$ifolder !="", "Please select a data  folder ")
+	)
   indir=input$ifolder
   allfiles=list.files(indir,pattern=".umi.txt")
   selectInput("ifile","Choose UMI file:",selected=NULL,allfiles)
@@ -18,7 +25,12 @@ datafile<-function(){
   if (file.exists(infile)) {
       return(infile) 
   }else {
-     return(alt) 
+     if (file.exists(alt)) {
+		return(alt)
+	 }else {
+		return(NULL)
+	 }
+      
   }
 }
 
@@ -32,8 +44,18 @@ getColNames<-reactive({
 })
 
 getTable<-reactive({
+		validate(
+			need(!is.null(input$ifolder), "Please select a data  folder ")
+		)
+
   infile=datafile()
-  dat=fread(infile,sep="\t",header=T)
+  if (file.exists(infile)) {
+	dat=fread(infile,sep="\t",header=T)
+  }else {
+  #empty data frame
+   dat=data.frame()
+   dat=as.data.table()
+  }
   dat
 })
 
@@ -60,6 +82,22 @@ filTable<-reactive({
   
   dat
 })
+
+#print tags uploaded 
+output$validtags<-renderText({
+	  if (!is.null(input$tagfile)) {
+      infile=input$tagfile
+      path=infile$datapath
+      vec=read.csv2(path,header=F)
+      mytags=vec$V1
+	  count= length(mytags)
+	  lengths= mean(nchar(as.character(mytags)))
+	  sprintf("Uploaded File Status: %s Barcodes of length %s uploaded",count,lengths)
+  }else {
+		""
+  }
+})
+
 
 tbl2mat<-reactive({
   d=getTable()

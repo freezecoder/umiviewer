@@ -1,4 +1,26 @@
 
+ 
+ #Raw data view of the UMI file 
+  output$tbl1<-renderDataTable({
+    dat=filTable()
+    
+    if (1==1) {
+      dat=dat    
+    }else {
+      gns=dat$GENE
+      cc=subset(dat,select=-GENE)
+      cc=cpm(cc)
+      names(cc)=names(dat)
+      rownames(cc)=row.names(dat)
+      #cc$GENE=gns
+      dat=cc
+    }
+    dat
+  })
+  
+  
+
+
 #read metrics file data
 metricsData<-reactive({
 	infile=datafile()

@@ -19,7 +19,7 @@ controlPanel<-function(){
 	   fluidRow( 
 		column(6,uiOutput("selui")),
 		column(1,h2("OR ")),
-		column(4,fileInput("tagfile","Select file with Barcodes/tags"))
+		column(4,fileInput("tagfile","Select file with Barcodes/tags"),h3(textOutput("validtags")))
 		)
       )
 	  )
@@ -135,6 +135,7 @@ tabPanel("Alignment Metrics",
 
 canalQCPanel<-function(){
 	tabPanel("Canal QC",
+		p("Code reference :"), a(href="https://github.com/gbritt/SatijaLab/blob/DropAnalysis/analysis%20script%20master.R",target="_new","Github SatijaLab"),
 		plotOutput("canalplot",width=1200,height=1000),
 		downloadButton('canal_download', class="btn btn-info btn-lg",icon("file-excel-o") ),
 		dataTableOutput("canaldt")
@@ -162,7 +163,7 @@ shinyUI(fluidPage(div(h1("Imane's UMI Viewer"),style="font-family : fantasy ;"),
     statsTab(),
 	boxplotPanel(),
 	metricsPanel(),
-	"-------------",
+	"-----------",
 	multiPanel(),
 	tabPanel("Multiple Files Mapped reads",
 	
