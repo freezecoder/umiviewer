@@ -3,4 +3,4 @@
 #IMPORTANT
 #Set this dir to a location of foldes with UMI files
 #This has to be valid for the App to work
-topdir="~/Downloads/webcode/umidir/"
+topdir="/Users/loyal9/Documents/UMIappdocs"

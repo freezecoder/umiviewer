@@ -47,7 +47,16 @@ combinedMetricsTable<-reactive({
 		mytags=vec$V1
 		mdf<-subset(mdf, SAMPLE %in% mytags)
 	 }
-	
+	 
+	 if (!is.null(input$tagannofile)) {
+	 	infile=input$tagannofile
+		path=infile$datapath
+		ann=fread(path,header=F,sep="\t")
+		setnames(ann,c("tagname","SAMPLE"))
+		ann$wellname=paste(ann$tagname,ann$SAMPLE,sep="_")
+		mdf=merge(mdf,ann,by="SAMPLE",all.x=T)
+     }
+	 
 	mdf
 })
 
@@ -70,20 +79,25 @@ output$metsel<-renderUI({
 
 output$metricsbarchart <-renderChart({
         mydata=combinedMetricsTable()
+		xvar="SAMPLE"
+		
+		if ("wellname" %in% names(mydata))
+			xvar="wellname"
+		
 		
 		if (!is.null(input$mmfiles)) 
 			mydata=subset(mydata,sourcefile %in% input$mmfiles)
 		
         d1 <- dPlot(
           y = input$mmeasure,
-          x= c("SAMPLE","sourcefile"),
+          x= c(xvar,"sourcefile"),
 		  groups="sourcefile",
           data = mydata,
           type = input$mctype
         )
         d1$xAxis( type = "addCategoryAxis")
         d1$yAxis( type = "addMeasureAxis" )
-		d1$xAxis( orderRule = "SAMPLE")
+		d1$xAxis( orderRule = xvar)
         d1$params$width=1200
         d1$params$height=800
 		
@@ -135,22 +149,25 @@ output$metricsbarchart <-renderChart({
 output$orgcountplot<-renderChart({
 
 			metric=input$ocmetric
-
+			xvar="DNAtag"
 	        mydata=merged_org_counts()
-			
+						
 			if (!is.null(input$mmfiles)) 
 				mydata=subset(mydata,sourcefile %in% input$mmfiles)
-						
+			
+			if ("wellname" %in% names(mydata))
+				xvar="wellname"
+			
 			d1 <- dPlot(
 			y = metric,
-			x= c("DNAtag","sourcefile"),
+			x= c(xvar,"sourcefile"),
 			groups="sourcefile",
           data = mydata,
           type = "bar"
         )
         d1$xAxis( type = "addCategoryAxis")
         d1$yAxis( type = "addMeasureAxis" )
-		d1$xAxis( orderRule = "DNAtag")
+		d1$xAxis( orderRule = xvar)
 		#d1$yAxis( type = "addMeasureAxis" )
         d1$params$width=1200
         d1$params$height=800
@@ -184,6 +201,15 @@ merged_org_counts<-reactive({
 		mytags=vec$V1
 		df<-subset(df, DNAtag %in% mytags)
 	 }
+	 
+	 if (!is.null(input$tagannofile)) {
+	 	infile=input$tagannofile
+		path=infile$datapath
+		ann=fread(path,header=F,sep="\t")
+		setnames(ann,c("tagname","DNAtag"))
+		ann$wellname=paste(ann$tagname,ann$SAMPLE,sep="_")
+		df=merge(df,ann,by="DNAtag",all.x=T)
+     }
 
 	 df
 })

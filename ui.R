@@ -17,10 +17,15 @@ controlPanel<-function(){
         p("Hint:Enter genes as a filter for the data, the search box will load genes in the file as you type"),
        hr(),
 	   fluidRow( 
-		column(6,uiOutput("selui")),
+		column(4,uiOutput("selui")),
 		column(1,h2("OR ")),
 		column(4,fileInput("tagfile","Select file with Barcodes/tags"),h3(textOutput("validtags")))
-		)
+		),
+		hr(),
+		fluidRow(
+			h4("Barcode Annotations"),
+			column(4,fileInput("tagannofile","Select file with Barcodes/tags"))
+			)
       )
 	  )
 }
@@ -163,10 +168,9 @@ shinyUI(fluidPage(div(h1("Imane's UMI Viewer"),style="font-family : fantasy ;"),
     statsTab(),
 	boxplotPanel(),
 	metricsPanel(),
-	"-----------",
+	"----Multi------",
 	multiPanel(),
 	tabPanel("Multiple Files Mapped reads",
-	
 	selectInput("ocmetric","Measure",selected="PERCENT_HUMAN",c("HUMAN","NONHUMAN","PERCENT_HUMAN","PERCENT_NONHUMAN","total")),
 	    showOutput("orgcountplot", "dimple"),
 		downloadButton('ocdownload', class="btn btn-info btn-lg",icon("file-excel-o") ),
