@@ -80,6 +80,8 @@ filTable<-reactive({
       dat<-subset(dat, select=c("GENE",matching))
   }
   
+  
+  
   dat
 })
 
@@ -129,6 +131,6 @@ statTable<-reactive({
                         min=min(value),
                         max=max(value))][order(-max)]
     res$logsum=log10(res$sum)
-    res
-    
+  
+	return(res)
   })

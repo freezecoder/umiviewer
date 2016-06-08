@@ -5,6 +5,19 @@
      dat=statTable()
 	 dat$ORG=gsub("\\-","",dat$ORG)
 	 newd=dcast.data.table(dat,DNAtag~ORG,value.var="sum",fun.aggregate=sum)
+	 newd=as.data.table(newd)
+	 
+     if (!is.null(input$tagannofile)) {
+		 print("Joining annotations to mappedCounts")
+    	infile=input$tagannofile
+  	 	 path=infile$datapath
+   		  ann=fread(path,header=F,sep="\t")
+  		  setnames(ann,c("tagname","DNAtag"))
+   	      ann$wellname=paste(ann$tagname,ann$DNAtag,sep="_")
+  	     newd=merge(newd,ann,by="DNAtag",all.x=T)
+       }
+	 
+	 
 	 newd$total=newd$HUMAN+newd$NONHUMAN
 	 newd$PERCENT_HUMAN=newd$HUMAN/newd$total
 	 newd$PERCENT_NONHUMAN=newd$NONHUMAN/newd$total
