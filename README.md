@@ -1,10 +1,13 @@
 
 #Introduction
 
-A viewer for UMI and metrics file from DropSeq analysis. The results of the canal pipeline are used as input to this dashboard viewer. This code uses the shiny framework ( http://shiny.rstudio.com).
+A viewer for UMI and metrics file from DropSeq analysis. The results of the canal single-cell RNASeq pipeline are used as input to this dashboard viewer. This code uses the shiny framework ( http://shiny.rstudio.com).
 
 It is highly recommended that you launch this package using Rstudio (http://www.rstudio.com) (Windows/Mac) if you do not have access to a shiny server installation.
 
+# Background
+
+Single-cell RNASeq data requires special bioinformatics processing. See the BCBIO example [pipeline](http://bcbio-nextgen.readthedocs.io/en/latest/contents/pipelines.html#single-cell-rna-seq) for how to deal with this data.
 
 # Dependencies
 
